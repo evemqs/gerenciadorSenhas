@@ -1,10 +1,12 @@
 public class PasswordLeakChecker {
     public static void verificarVazamento(String senha) {
-        System.out.println("(Simulado) Verificando vazamento da senha...");
-        if (senha.equals("123456") || senha.equalsIgnoreCase("senha123")) {
-            System.out.println("⚠️ Senha fraca ou exposta!");
+        System.out.println("Verificando vazamento da senha com Have I Been Pwned...");
+        boolean vazada = HIBPClient.senhaVazada(senha);
+
+        if (vazada) {
+            System.out.println("Senha encontrada em vazamentos conhecidos!");
         } else {
-            System.out.println("✅ Senha parece segura.");
+            System.out.println("Senha não encontrada em vazamentos conhecidos.");
         }
     }
 }

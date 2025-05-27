@@ -1,18 +1,40 @@
-import java.util.Random;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PasswordService {
-    public void salvarSenha(String servico, String senha) {
-        System.out.println("Senha para " + servico + " salva (simulado): " + senha);
-        PasswordLeakChecker.verificarVazamento(senha);
+    private final Map<String, Map<String, String>> senhas = new HashMap<>();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    public void salvarSenha(String servico, String usuario, String senha) {
+        String senhaHash = org.mindrot.jbcrypt.BCrypt.hashpw(senha, org.mindrot.jbcrypt.BCrypt.gensalt());
+
+        // Atualiza mapa
+        Map<String, String> dados = new HashMap<>();
+        dados.put("usuario", usuario);
+        dados.put("senhaHash", senhaHash);
+        senhas.put(servico, dados);
+
+        // Salva em disco
+        PasswordStorage.salvarEmArquivo(senhas);
+
+        System.out.println("Senha salva com sucesso para o serviço: " + servico);
     }
 
-    public String gerarSenhaForte() {
-        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
-        StringBuilder senha = new StringBuilder();
-        Random rand = new Random();
-        for (int i = 0; i < 12; i++) {
-            senha.append(caracteres.charAt(rand.nextInt(caracteres.length())));
+    public void listarSenhas() {
+        System.out.println("Serviços cadastrados:");
+        for (String servico : senhas.keySet()) {
+            Map<String, String> dados = senhas.get(servico);
+            System.out.println("- " + servico + " (usuário: " + dados.get("usuario") + ")");
         }
-        return senha.toString();
+    }
+
+    public void carregarSenhas() {
+        Map<String, Map<String, String>> dados = PasswordStorage.carregarDoArquivo();
+        if (dados != null) {
+            senhas.putAll(dados);
+        }
     }
 }

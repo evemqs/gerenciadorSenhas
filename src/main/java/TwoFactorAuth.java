@@ -1,12 +1,45 @@
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+
 import java.util.Scanner;
 
 public class TwoFactorAuth {
-    public static boolean verificarCodigo(Scanner scanner) {
-        int codigoGerado = 123456; // Simulado (substitua por Google Authenticator real)
-        System.out.print("Digite o código 2FA (123456): ");
-        int codigo = scanner.nextInt();
-        scanner.nextLine();
+    private final GoogleAuthenticator gAuth = new GoogleAuthenticator();
+    private final GoogleAuthenticatorKey key;
 
-        return codigo == codigoGerado;
+    public TwoFactorAuth() {
+        this.key = gAuth.createCredentials();
+    }
+
+    public String getSecret() {
+        return key.getKey();
+    }
+
+    public String getQRCode(String user, String issuer) {
+        return GoogleAuthenticatorQRGenerator.getOtpAuthURL(issuer, user, key);
+    }
+
+    public boolean validateCode(int code) {
+        return gAuth.authorize(key.getKey(), code);
+    }
+
+    // Modo interativo simples (exemplo)
+    public boolean run2FA(String user) {
+        String qrCode = getQRCode(user, "PasswordManager");
+        System.out.println("Escaneie este QR Code no Google Authenticator:");
+        System.out.println(qrCode);
+
+        System.out.print("Digite o código do app: ");
+        Scanner scanner = new Scanner(System.in);
+        int code = scanner.nextInt();
+
+        boolean valid = validateCode(code);
+        if (valid) {
+            System.out.println("Código válido! Acesso permitido.");
+        } else {
+            System.out.println("Código inválido! Acesso negado.");
+        }
+        return valid;
     }
 }
