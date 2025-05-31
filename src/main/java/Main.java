@@ -6,7 +6,7 @@ public class Main {
         PasswordService passwordService = new PasswordService();
         passwordService.carregarSenhas();
 
-        System.out.println("AUTENTICAÇÃO 2FA");
+        System.out.println("AUTENTICAÇÃO");
         System.out.print("Digite seu nome de usuário para configurar: ");
         String nomeUsuario = scanner.nextLine();
 
@@ -21,7 +21,8 @@ public class Main {
             System.out.println("\nGERENCIADOR DE SENHAS");
             System.out.println("1. Adicionar nova senha");
             System.out.println("2. Listar serviços salvos");
-            System.out.println("3. Sair");
+            System.out.println("3. Sugerir senha");
+            System.out.println("4. Sair");
             System.out.print("Escolha uma opção: ");
             String opcao = scanner.nextLine();
 
@@ -34,6 +35,7 @@ public class Main {
                     System.out.print("Senha: ");
                     String senha = scanner.nextLine();
 
+                    PasswordLeakChecker.verificarVazamento(senha);
                     passwordService.salvarSenha(servico, user, senha);
                     break;
 
@@ -42,6 +44,12 @@ public class Main {
                     break;
 
                 case "3":
+                    String senhaGerada = PasswordGenerator.gerarSenha(16);
+                    System.out.println("Senha gerada: " + senhaGerada);
+
+                    break;
+
+                case "4":
                     System.out.println("Encerrando...");
                     executando = false;
                     break;

@@ -21,6 +21,7 @@ public class HIBPClient {
             String linha;
             while ((linha = in.readLine()) != null) {
                 if (linha.startsWith(sufixo)) {
+                    System.out.println("Senha encontrada na lista de vazamentos!");
                     in.close();
                     return true;
                 }

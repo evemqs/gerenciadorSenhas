@@ -24,7 +24,6 @@ public class TwoFactorAuth {
         return gAuth.authorize(key.getKey(), code);
     }
 
-    // Modo interativo simples (exemplo)
     public boolean run2FA(String user) {
         String qrCode = getQRCode(user, "PasswordManager");
         System.out.println("Escaneie este QR Code no Google Authenticator:");
@@ -32,7 +31,15 @@ public class TwoFactorAuth {
 
         System.out.print("Digite o código do app: ");
         Scanner scanner = new Scanner(System.in);
-        int code = scanner.nextInt();
+        String input = scanner.nextLine();
+
+        int code;
+        try {
+            code = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada inválida. Digite apenas números.");
+            return false;
+        }
 
         boolean valid = validateCode(code);
         if (valid) {

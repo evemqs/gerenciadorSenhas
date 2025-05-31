@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -25,8 +26,8 @@ public class PasswordStorage {
     public static Map<String, Map<String, String>> carregarDoArquivo() {
         try (FileReader reader = new FileReader(ARQUIVO)) {
             return gson.fromJson(reader, tipoDados);
-        } catch (IOException e) {
-            System.out.println("Nenhum arquivo encontrado. Criando novo armazenamento.");
+        } catch (IOException | JsonSyntaxException e) {
+            System.out.println("Erro ao carregar o arquivo ou arquivo corrompido. Criando novo armazenamento.");
             return new HashMap<>();
         }
     }
