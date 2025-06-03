@@ -1,6 +1,5 @@
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
-import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 
 import java.util.Scanner;
 
@@ -16,20 +15,14 @@ public class TwoFactorAuth {
         return key.getKey();
     }
 
-    public String getQRCode(String user, String issuer) {
-        return GoogleAuthenticatorQRGenerator.getOtpAuthURL(issuer, user, key);
-    }
-
     public boolean validateCode(int code) {
         return gAuth.authorize(key.getKey(), code);
     }
 
     public boolean run2FA(String user) {
-        String qrCode = getQRCode(user, "PasswordManager");
-        System.out.println("Escaneie este QR Code no Google Authenticator:");
-        System.out.println(qrCode);
-
-        System.out.print("Digite o código do app: ");
+        System.out.println("Insira o código abaixo no Google Authenticator:");
+        System.out.println("Código secreto: " + getSecret());
+        System.out.print("Digite o código gerado no app: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 

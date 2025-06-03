@@ -1,5 +1,5 @@
 public class PasswordLeakChecker {
-    public static void verificarVazamento(String senha) {
+    public static boolean verificarVazamento(String senha) {
         System.out.println("Verificando vazamento da senha com Have I Been Pwned...");
         boolean vazada = HIBPClient.senhaVazada(senha);
 
@@ -8,5 +8,6 @@ public class PasswordLeakChecker {
         } else {
             System.out.println("Senha não encontrada em vazamentos conhecidos.");
         }
+        return vazada;
     }
 }

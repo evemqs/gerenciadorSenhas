@@ -21,7 +21,7 @@ public class Main {
             System.out.println("\nGERENCIADOR DE SENHAS");
             System.out.println("1. Adicionar nova senha");
             System.out.println("2. Listar serviços salvos");
-            System.out.println("3. Sugerir senha");
+            System.out.println("3. Gerar senha");
             System.out.println("4. Sair");
             System.out.print("Escolha uma opção: ");
             String opcao = scanner.nextLine();
@@ -35,7 +35,15 @@ public class Main {
                     System.out.print("Senha: ");
                     String senha = scanner.nextLine();
 
-                    PasswordLeakChecker.verificarVazamento(senha);
+                    boolean vazada = PasswordLeakChecker.verificarVazamento(senha);
+                    if (vazada) {
+                        System.out.print("Deseja continuar com essa senha mesmo assim? (s/n): ");
+                        String resposta = scanner.nextLine();
+                        if (!resposta.equalsIgnoreCase("s")) {
+                            System.out.println("Senha não salva.");
+                            break;
+                        }
+                    }
                     passwordService.salvarSenha(servico, user, senha);
                     break;
 
@@ -44,7 +52,7 @@ public class Main {
                     break;
 
                 case "3":
-                    String senhaGerada = PasswordGenerator.gerarSenha(16);
+                    String senhaGerada = PasswordGenerator.gerarSenha(8);
                     System.out.println("Senha gerada: " + senhaGerada);
 
                     break;
