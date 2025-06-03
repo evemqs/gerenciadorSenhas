@@ -11,7 +11,6 @@ public class PasswordGenerator {
             int index = random.nextInt(CARACTERES.length());
             senha.append(CARACTERES.charAt(index));
         }
-
         return senha.toString();
     }
 }

@@ -27,6 +27,7 @@ public class TwoFactorAuth {
         String input = scanner.nextLine();
 
         int code;
+
         try {
             code = Integer.parseInt(input);
         } catch (NumberFormatException e) {

@@ -3,6 +3,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
 
 public class HIBPClient {
 
@@ -17,7 +18,7 @@ public class HIBPClient {
             conexao.setRequestMethod("GET");
             conexao.setRequestProperty("User-Agent", "PasswordManagerApp");
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(conexao.getInputStream(), StandardCharsets.UTF_8));
             String linha;
             while ((linha = in.readLine()) != null) {
                 if (linha.startsWith(sufixo)) {
@@ -26,6 +27,7 @@ public class HIBPClient {
                 }
             }
             in.close();
+
         } catch (Exception e) {
             System.out.println("Erro ao verificar a senha: " + e.getMessage());
         }
@@ -35,7 +37,7 @@ public class HIBPClient {
 
     private static String sha1(String senha) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] bytes = md.digest(senha.getBytes("UTF-8"));
+        byte[] bytes = md.digest(senha.getBytes(StandardCharsets.UTF_8));
 
         StringBuilder resultado = new StringBuilder();
         for (byte b : bytes) {

@@ -36,6 +36,7 @@ public class Main {
                     String senha = scanner.nextLine();
 
                     boolean vazada = PasswordLeakChecker.verificarVazamento(senha);
+
                     if (vazada) {
                         System.out.print("Deseja continuar com essa senha mesmo assim? (s/n): ");
                         String resposta = scanner.nextLine();

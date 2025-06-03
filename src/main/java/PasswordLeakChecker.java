@@ -8,6 +8,7 @@ public class PasswordLeakChecker {
         } else {
             System.out.println("Senha não encontrada em vazamentos conhecidos.");
         }
+
         return vazada;
     }
 }

@@ -13,7 +13,6 @@ public class PasswordService {
         senhas.put(servico, dados);
 
         PasswordStorage.salvarEmArquivo(senhas);
-
         System.out.println("Senha salva com sucesso para o serviço: " + servico);
     }
 

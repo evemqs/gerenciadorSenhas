@@ -23,6 +23,7 @@ public class PasswordStorage {
         }
     }
 
+
     public static Map<String, Map<String, String>> carregarDoArquivo() {
         try (FileReader reader = new FileReader(ARQUIVO)) {
             return gson.fromJson(reader, tipoDados);
