@@ -1,7 +1,9 @@
+package leak;
+
 public class PasswordLeakChecker {
     public static boolean verificarVazamento(String senha) {
         System.out.println("Verificando vazamento da senha com Have I Been Pwned...");
-        boolean vazada = HIBPClient.senhaVazada(senha);
+        boolean vazada = PwnedPassword.senhaVazada(senha);
 
         if (vazada) {
             System.out.println("Senha encontrada em vazamentos conhecidos!");

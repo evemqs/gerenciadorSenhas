@@ -1,3 +1,7 @@
+import auth.TwoFactorAuth;
+import generator.PasswordGenerator;
+import leak.PasswordLeakChecker;
+
 import java.util.Scanner;
 
 public class Main {

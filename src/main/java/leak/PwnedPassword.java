@@ -1,3 +1,5 @@
+package leak;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -5,7 +7,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 
-public class HIBPClient {
+public class PwnedPassword {
 
     public static boolean senhaVazada(String senha) {
         try {
