@@ -1,5 +1,6 @@
 package auth;
 
+// Importar a biblioteca do Google Authenticator
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 
@@ -30,6 +31,7 @@ public class TwoFactorAuth {
 
         int code;
 
+        // Gera uma exceção caso o usuário digite algo sem ser números
         try {
             code = Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -37,6 +39,7 @@ public class TwoFactorAuth {
             return false;
         }
 
+        // Valida e mostra o resultado
         boolean valid = validateCode(code);
         if (valid) {
             System.out.println("Código válido! Acesso permitido.");

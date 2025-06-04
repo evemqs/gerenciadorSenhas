@@ -15,6 +15,7 @@ public class PasswordStorage {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final Type tipoDados = new TypeToken<Map<String, Map<String, String>>>() {}.getType();
 
+    // Salva no arquivo JSON
     public static void salvarEmArquivo(Map<String, Map<String, String>> dados) {
         try (FileWriter writer = new FileWriter(ARQUIVO)) {
             gson.toJson(dados, writer);
@@ -23,7 +24,7 @@ public class PasswordStorage {
         }
     }
 
-
+    // Carrega um arquivo JSON existente
     public static Map<String, Map<String, String>> carregarDoArquivo() {
         try (FileReader reader = new FileReader(ARQUIVO)) {
             return gson.fromJson(reader, tipoDados);

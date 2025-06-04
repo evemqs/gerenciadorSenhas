@@ -1,3 +1,4 @@
+// Importa a autenticação, geração de senhas e verificação de vazamentos
 import auth.TwoFactorAuth;
 import generator.PasswordGenerator;
 import leak.PasswordLeakChecker;
@@ -7,6 +8,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        // Carrega o arquivo JSON (se houver)
         PasswordService passwordService = new PasswordService();
         passwordService.carregarSenhas();
 
@@ -14,10 +16,11 @@ public class Main {
         System.out.print("Digite seu nome de usuário para configurar: ");
         String nomeUsuario = scanner.nextLine();
 
+        // Executa a autenticação
         TwoFactorAuth twoFA = new TwoFactorAuth();
         if (!twoFA.run2FA(nomeUsuario)) {
             System.out.println("Acesso negado.");
-            return;
+            return; // Encerra o programa caso falhe
         }
 
         boolean executando = true;
@@ -31,6 +34,7 @@ public class Main {
             String opcao = scanner.nextLine();
 
             switch (opcao) {
+                // Cadastra a senha, o serviço e o usuário
                 case "1":
                     System.out.print("Nome do serviço (ex: Gmail): ");
                     String servico = scanner.nextLine();
@@ -39,8 +43,11 @@ public class Main {
                     System.out.print("Senha: ");
                     String senha = scanner.nextLine();
 
+                    // Verifica se a senha foi vazada
                     boolean vazada = PasswordLeakChecker.verificarVazamento(senha);
 
+                    // Usuário escolhe se continua com a senha vazada ou cria outra
+                    // Caso continue, a senha é salva
                     if (vazada) {
                         System.out.print("Deseja continuar com essa senha mesmo assim? (s/n): ");
                         String resposta = scanner.nextLine();
@@ -49,20 +56,24 @@ public class Main {
                             break;
                         }
                     }
+                    // Salva a senha no arquivo JSON
                     passwordService.salvarSenha(servico, user, senha);
                     break;
 
                 case "2":
+                    // Lista os serviços cadastrados
                     passwordService.listarSenhas();
                     break;
 
                 case "3":
+                    // Gera uma senha de 8 caracteres
                     String senhaGerada = PasswordGenerator.gerarSenha(8);
                     System.out.println("Senha gerada: " + senhaGerada);
 
                     break;
 
                 case "4":
+                    // Encerra o programa
                     System.out.println("Encerrando...");
                     executando = false;
                     break;

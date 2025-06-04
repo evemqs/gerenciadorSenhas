@@ -4,6 +4,7 @@ import java.util.Map;
 public class PasswordService {
     private final Map<String, Map<String, String>> senhas = new HashMap<>();
 
+    // Salva a senha com criptografia
     public void salvarSenha(String servico, String usuario, String senha) {
         String senhaHash = org.mindrot.jbcrypt.BCrypt.hashpw(senha, org.mindrot.jbcrypt.BCrypt.gensalt());
 
@@ -16,6 +17,7 @@ public class PasswordService {
         System.out.println("Senha salva com sucesso para o serviço: " + servico);
     }
 
+    // Lista as senhas já criptografadas
     public void listarSenhas() {
         System.out.println("Serviços cadastrados:");
         for (String servico : senhas.keySet()) {
@@ -26,6 +28,7 @@ public class PasswordService {
         }
     }
 
+    // Carrega as senhas do arquivo já salvas
     public void carregarSenhas() {
         Map<String, Map<String, String>> dados = PasswordStorage.carregarDoArquivo();
         if (dados != null) {
