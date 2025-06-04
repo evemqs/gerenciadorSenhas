@@ -26,10 +26,10 @@ Funcionalidades:
 ## Como Executar o Projeto
 
 - Clone o repositório:
-git clone https://github.com/evemqs/gerenciadorSenhas.git
-cd gerenciadorSenhas
+  1. git clone https://github.com/evemqs/gerenciadorSenhas.git
+  2. cd gerenciadorSenhas
 
 - Execute:
-Vá para classe 'Main' e segure Shift + F10
+  1. Vá para classe 'Main' e segure Shift + F10
 
 *Obs: Baixar as dependências caso ainda não estejam baixadas
