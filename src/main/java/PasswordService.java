@@ -24,7 +24,7 @@ public class PasswordService {
             Map<String, String> dados = senhas.get(servico);
             String usuario = dados.get("usuario");
             String senhaHash = dados.get("senhaHash");
-            System.out.println("- " + servico + " (usuário: " + usuario + ", senha criptografada: " + senhaHash + ")");
+            System.out.println(servico + ":\n Usuário: " + usuario + "\n Senha: " + senhaHash);
         }
     }
 

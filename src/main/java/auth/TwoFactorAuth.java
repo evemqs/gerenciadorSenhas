@@ -22,11 +22,10 @@ public class TwoFactorAuth {
         return gAuth.authorize(key.getKey(), code);
     }
 
-    public boolean run2FA(String user) {
+    public boolean run2FA(String user, Scanner scanner) {
         System.out.println("Insira o código abaixo no Google Authenticator:");
         System.out.println("Código secreto: " + getSecret());
         System.out.print("Digite o código gerado no app: ");
-        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         int code;

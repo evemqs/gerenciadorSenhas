@@ -17,7 +17,7 @@ public class PwnedPassword {
             String sufixo = hash.substring(5);
 
             // Consulta a API para obter a lista de hashes vazados
-            URL url = new URL("https://api.pwnedpasswords.com/range/" + prefixo);
+            URL url = new java.net.URI("https", "api.pwnedpasswords.com", "/range/" + prefixo, null).toURL();
             HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
             conexao.setRequestMethod("GET");
             conexao.setRequestProperty("User-Agent", "PasswordManagerApp");

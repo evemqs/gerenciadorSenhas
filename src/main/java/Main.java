@@ -18,8 +18,9 @@ public class Main {
 
         // Executa a autenticação
         TwoFactorAuth twoFA = new TwoFactorAuth();
-        if (!twoFA.run2FA(nomeUsuario)) {
+        if (!twoFA.run2FA(nomeUsuario, scanner)) {
             System.out.println("Acesso negado.");
+            scanner.close();
             return; // Encerra o programa caso falhe
         }
 
@@ -67,7 +68,7 @@ public class Main {
 
                 case "3":
                     // Gera uma senha de 8 caracteres
-                    String senhaGerada = PasswordGenerator.gerarSenha(8);
+                    String senhaGerada = PasswordGenerator.gerarSenha(16);
                     System.out.println("Senha gerada: " + senhaGerada);
 
                     break;
