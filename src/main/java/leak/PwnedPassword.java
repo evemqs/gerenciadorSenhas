@@ -41,7 +41,7 @@ public class PwnedPassword {
     }
 
     private static String sha1(String senha) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
         byte[] bytes = md.digest(senha.getBytes(StandardCharsets.UTF_8));
 
         StringBuilder resultado = new StringBuilder();
